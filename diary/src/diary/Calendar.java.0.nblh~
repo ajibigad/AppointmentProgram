@@ -1,0 +1,340 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package diary;
+
+/**
+ *
+ * @author Julius
+ */
+public class Calendar {
+    private Appointment day[]=new Appointment[30];
+        private Appointment month[]=new Appointment[12];
+        //private Appointment appointment;
+        //private String strDay[] = {"1", "2"};
+        private int intDay[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+        private String strMonth[] = {"Jan", "Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"};
+        
+	Calendar()
+	{
+		/*You may implement this constructor to suit your needs, or you may add additional constructors.  This is the constructor which will be used for marking*/ 
+            for(int i = 0; i < intDay.length; i++)
+            {
+               day[i] = new Appointment(intDay[i]);
+               // System.out.print(day[i].right);
+            }
+            for(int i = 0; i < strMonth.length; i++)
+            {
+                month[i] = new Appointment(strMonth[i]);
+                //System.out.print(strMonth);
+            } 
+            
+           // for(int i = 0; i < )
+           // System.out.print(day);
+        }
+	
+	/*Insertion*/
+	public void addAppointment(String month, int day, String description, int duration)
+	{
+		/*Insert an appointment at the given month and day combination.  Intialize the appointment with the remainder of the parameters.
+		Duplicate appointments are allowed.*/
+            Appointment newApp = new Appointment();
+            newApp.setDescription(description);
+            newApp.setDuration(duration);
+            newApp.setDay(day);
+            newApp.setMonth(month);
+            
+            int monthIndex=getmonthIndex(month);
+            newApp.monthIndex=monthIndex;
+            int dayIndex=getdayIndex(day);
+           // System.out.println(monthIndex);
+            
+            //System.out.println(dayIndex);
+            //Don't have to keep track of day index cos its an int already.
+            //Check if appoinmtment exists already.(use either right or down pointer to check for this
+         //Check if there is an appointment in the monthInex,]
+            
+                        //For insertion into empty calender
+            if(this.day[dayIndex].right == null && this.month[monthIndex].down == null)
+            {
+                this.day[dayIndex].right = newApp;//This however shows errors. which means it's not right.
+                this.month[monthIndex].down = newApp;//This however shows errors. which means it's not right.
+                //System.out.println(newApp.getDescription());
+            }
+                        
+            
+                    //for empty dayList but Occupied Month list
+           else if(this.day[dayIndex].right == null && this.month[monthIndex].down!=null) 
+           {
+               this.day[dayIndex].right = newApp;//This is to start the empty dayList
+               
+               insertMonth(newApp,monthIndex);//inserts node into month list
+               
+                   
+              // this.month[monthIndex].back = newApp;    
+               //use back "pointer"  from existing appoinment(node) to new appoinment(newApp)
+           }// end of empty day list
+           
+           
+                    //empty monthList but Occupied DayList
+           else if(this.day[dayIndex].right != null && this.month[monthIndex].down==null) 
+           {
+                         //use DOWN "pointer"  from existing appoinment(node) to new appoinment(node)
+                             //and use right "pointer" for whatever day new appointment is on.
+               this.month[monthIndex].down = newApp; //created the month list  
+               
+               insertDay(newApp,dayIndex);//inserts node into day list
+           }//end
+           
+           
+                        //this is for occupied day and month list 
+           else if(this.day[dayIndex].right != null && this.month[monthIndex].down!=null) //else if appoinment exists on same day but differnt month 
+           {
+               //use RIGHT "pointer" from existing appoinment(node) to new appoinment(node)
+                             //and use down "pointer" for whatever month new appointment is on.
+               Appointment current=this.month[monthIndex].down;
+               while(current!=null){//checks if there is a node in the list with the same date
+               if((current.getMonth().equals(newApp.getMonth())) && current.getDay()==newApp.getDay()){//checks
+                   break; //breaks if a similar date is found
+               }
+               else{//else continue searching
+               current=current.down;
+               }
+               }
+               
+               if(current==null){//no duplicate date was found
+                   insertMonth(newApp,monthIndex);
+                   insertDay(newApp,dayIndex);
+               }
+               else{//duplicate was found
+               if(current.back==null)//if duplicate has no back
+                   current.back=newApp;//set back to new node
+               else{//duplicate has a back
+               while(current.back!=null){// find end of the back list
+               current=current.back;
+               }
+               current.back=newApp;//set end of back to new node.
+               }
+               }
+           } 
+           
+           
+            
+	}
+	
+	/*Deletion methods*/
+	public Appointment deleteAppointment(String month, int day)
+	{
+		/*Delete the first appointment at the given month and day combination and return the deleted appointment.
+		If no such appointment exists, return null.*/
+				
+		return null;
+	}
+	
+	public Appointment deleteAppointment(String month, int day, String description)
+	{
+		/*Delete the first appointment at the given month and day combination  with the description and return the deleted appointment.
+		If no such appointment exists, return null.*/
+				
+		return null;
+	}
+	
+	/*Clearing Methods*/
+	public void clearMyMonth(String month)
+	{
+		/*All appointements for the given month should be deleted.
+		If the month has no appointments, simply do nothing.*/
+	}
+	
+	public void clearMyDays(int day)
+	{
+		/*All appointements for the given day should be deleted.
+            	If the day has no appointments, simply do nothing.*/
+          
+	}
+	
+	public void clearMyYear()
+	{
+		/*Delete all appointments from the calendar.*/
+	}
+	
+	
+	/*Query methods*/
+	public Appointment getAppointment(String month, int day)
+	{
+		/*Return the head appointment of the month and day combination.  If no such appointment exists, return null*/
+		
+		return null;
+	}
+	
+	public Appointment getMonthAppointment(String month)
+	{
+		/*Return the head appointment for the month passed as a parameter.
+		If no such appointment exists, return null*/
+		return null;
+	}
+	
+	public Appointment getDayAppointment(int day)
+	{
+		/*Return the head appointment for the day passed as a parameter.
+		If no such appointment exists, return null*/
+		return null;
+	}
+	
+	
+	/*Modification methods*/
+	public void changeAppointmentDescription(String month, int day, String oldDescription, String newDescription)
+	{
+		/*Find the first appointment at the month and day combination with the description "oldDescription", and change the description to "newDescription"*/
+	}
+	
+	public void changeAppointmentDuration(String month, int day, String oldDescription, int newDuration)
+	{
+		/*Find the first appointment at the month and day combination with the description "oldDescription", and change the duration to "newDuration"*/
+	}
+	
+	public void changeAppointmentDate(String fromMonth, int fromDay, String toMonth, int toDay)
+	{
+		/*Find the appointment located at the "fromMonth"/"fromDate" combination and change the appointment to the "toMonth/toDate" location*/
+	}
+	
+        public void printMonth(){
+            for(int i=0; i<month.length; i++)
+            if(this.month[i].down!=null){
+            Appointment current=this.month[i].down;
+            do{
+            System.out.printf("date: %d/%s  description: %s\n",current.getDay(),current.getMonth(),current.getDescription());
+            
+            if(current.back!=null){
+                Appointment dup=current.back;
+            do{
+                System.out.printf("date: %d/%s  description: %s\n",dup.getDay(),dup.getMonth(),dup.getDescription());
+                dup=dup.back;
+            }while(dup!=null);
+            }
+            
+            current=current.down;
+            }while(current!=null);
+            System.out.println();
+        }
+            
+        }
+        
+        public void printDay(){
+            for(int i=0; i<day.length; i++)
+            if(this.day[i].right!=null){
+            Appointment current=this.day[i].right;
+            do{
+            System.out.printf("date: %d/%s  description: %s\n",current.getDay(),current.getMonth(),current.getDescription());
+            
+            if(current.back!=null){
+                Appointment dup=current.back;
+            do{
+                System.out.printf("date: %d/%s  description: %s\n",dup.getDay(),dup.getMonth(),dup.getDescription());
+                dup=dup.back;
+            }while(dup!=null);
+            }
+            
+            
+            current=current.right;
+            }while(current!=null);
+            System.out.println();
+        }
+        }
+        
+        public int getmonthIndex(String m){
+        int monthIndex = 0;//To keep track of the month index.
+            for(int i = 0; i < strMonth.length; i++)
+            {
+                if(strMonth[i].equalsIgnoreCase(m))
+                    monthIndex = i;
+                //System.out.println(newApp.getDescription());
+                //i++;
+            }
+return monthIndex;
+}
+        
+        public int getdayIndex(int d){
+        int dayIndex = 0;//To keep track of the month index.
+            for(int i = 0; i < intDay.length; i++)
+            {
+                if(intDay[i]==d)
+                    dayIndex = i;
+                //System.out.println(newApp.getDescription());
+                //i++;
+            }
+            return dayIndex;
+        }
+        
+       public void insertMonth(Appointment newApp,int monthIndex){
+       if(newApp.getDay()<this.month[monthIndex].down.getDay()){//if less than the top add to the front
+                   newApp.down=this.month[monthIndex].down;
+                   this.month[monthIndex].down=newApp;
+                  // System.out.println(this.month[monthIndex].down.getDescription()+" 1");
+                
+               }
+               
+               if(newApp.getDay()>this.month[monthIndex].down.getDay()){//if greater than the 1st month on the list Month 
+                  if(this.month[monthIndex].down.down==null){//if the list does not contains more than one node
+                      this.month[monthIndex].down.down=newApp;
+                 // System.out.println(this.month[monthIndex].down.down.getDescription()+" 2");
+                  }
+                  else{//the list contains more than one node;
+                   Appointment current;
+                   current=this.month[monthIndex].down;//current equals 1st node
+                   while(current.down!=null){//loops while the list contains more nodes ie loops until end of list.
+                    if(newApp.getDay()<current.down.getDay()){//if less than next node fix btw both nodes and leave the loop
+                        newApp.down=current.down;
+                        current.down=newApp;
+                       // System.out.println(current.down.getDescription()+" 3");
+                        break;
+                    }
+                    else{//more nodes and newApp is greater
+                    current=current.down;//moves to the next node for comparison
+                    }
+                   }
+                   
+                   if(current.down==null){//if end of list is reached then fix new node at the bottom of the list
+                       current.down=newApp;
+                      // System.out.println(current.down.getDescription()+" 4");
+                   }
+                  }
+               }
+       }
+
+       public void insertDay(Appointment newApp,int dayIndex){
+       if(newApp.monthIndex<this.day[dayIndex].right.monthIndex){//if month of new app is less than 1st node
+                   newApp.right=this.day[dayIndex].right;
+                   this.day[dayIndex].right=newApp;//Put newApp as 1st node
+               }
+               
+               else{//greater
+               if(this.day[dayIndex].right.right==null){//if only one node in list
+               this.day[dayIndex].right.right=newApp;
+               }
+               
+               else{//the list contains more than one node;
+                   Appointment current;
+                   current=this.day[dayIndex].right;//current equals 1st node
+                   while(current.right!=null){//loops while the list contains more nodes ie loops until end of list.
+                    if(newApp.monthIndex<current.right.monthIndex){//if less than next node fix btw both nodes and leave the loop
+                        newApp.right=current.right;
+                        current.right=newApp;
+                       // System.out.println(current.right.getDescription()+" 3");
+                        break;
+                    }
+                    else{//more nodes and newApp is greater
+                    current=current.right;//moves to the next node for comparison
+                    }
+                   }
+                   
+                   if(current.right==null){//if end of list is reached then fix new node at the bottom of the list
+                       current.right=newApp;
+                       //System.out.println(current.right.getDescription()+" 4");
+                   }
+                  }
+               
+               }
+       }
+}
