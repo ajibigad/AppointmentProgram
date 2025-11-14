@@ -1,0 +1,58 @@
+[
+  {
+    "month": "Jan",
+    "day": 10,
+    "description": "New Year Planning Meeting",
+    "duration": 2,
+    "created_at": "2025-11-14T09:46:30.593544"
+  },
+  {
+    "month": "Jan",
+    "day": 15,
+    "description": "Project Kickoff",
+    "duration": 3,
+    "created_at": "2025-11-14T09:46:30.593584"
+  },
+  {
+    "month": "Feb",
+    "day": 5,
+    "description": "Client Presentation",
+    "duration": 2,
+    "created_at": "2025-11-14T09:46:30.593634"
+  },
+  {
+    "month": "Feb",
+    "day": 14,
+    "description": "Valentine's Day Lunch",
+    "duration": 1,
+    "created_at": "2025-11-14T09:46:30.593767"
+  },
+  {
+    "month": "Mar",
+    "day": 20,
+    "description": "Spring Planning Session",
+    "duration": 4,
+    "created_at": "2025-11-14T09:46:30.593836"
+  },
+  {
+    "month": "Apr",
+    "day": 1,
+    "description": "Q1 Review Meeting",
+    "duration": 2,
+    "created_at": "2025-11-14T09:46:30.593933"
+  },
+  {
+    "month": "May",
+    "day": 10,
+    "description": "Team Building Event",
+    "duration": 5,
+    "created_at": "2025-11-14T09:46:30.594004"
+  },
+  {
+    "month": "Jun",
+    "day": 15,
+    "description": "Mid-Year Review",
+    "duration": 3,
+    "created_at": "2025-11-14T09:46:30.594078"
+  }
+]
