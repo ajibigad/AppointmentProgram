@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Add Appointment - Appointment Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-plus-circle"></i> Add New Appointment</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_appointment') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="month" class="form-label">Month <span class="text-danger">*</span></label>
+                            <select class="form-select" id="month" name="month" required>
+                                <option value="">Select a month</option>
+                                {% for month in months %}
+                                    <option value="{{ month }}">{{ month }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="day" class="form-label">Day <span class="text-danger">*</span></label>
+                            <select class="form-select" id="day" name="day" required>
+                                <option value="">Select a day</option>
+                                {% for day in days %}
+                                    <option value="{{ day }}">{{ day }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="description" name="description" rows="4"
+                                  placeholder="Enter appointment description" required></textarea>
+                        <div class="form-text">Provide a detailed description of the appointment.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="duration" class="form-label">Duration (hours) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="duration" name="duration"
+                               min="1" max="24" placeholder="e.g., 2" required>
+                        <div class="form-text">Enter the expected duration in hours (1-24).</div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-check-circle"></i> Add Appointment
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
